@@ -19,18 +19,50 @@
 
     create: function () {
       this.background = this.game.add.sprite(0, 0, 'backyard')
-      this.pet = this.game.add.sprite(100, 400, 'pet')
-      this.pet.anchor.setTo(0.5, 0.5)
-
-      this.pet.params = { health: 100, fun: 100 }
 
       this.apple = this.game.add.sprite(72, 570, 'apple')
+      this.apple.anchor.setTo(0.5, 0.5)
+      this.apple.inputEnabled = true
+      this.apple.params = { health: 20 }
+      this.apple.events.onInputDown.add(this.pickItem, this)
+
       this.candy = this.game.add.sprite(144, 570, 'candy')
+      this.candy.anchor.setTo(0.5, 0.5)
+      this.candy.inputEnabled = true
+      this.candy.params = { health: -10, fun: 10 }
+      this.candy.events.onInputDown.add(this.pickItem, this)
+
       this.toy = this.game.add.sprite(216, 570, 'toy')
+      this.toy.anchor.setTo(0.5, 0.5)
+      this.toy.inputEnabled = true
+      this.toy.params = { fun: 10 }
+      this.toy.events.onInputDown.add(this.pickItem, this)
+
       this.rotate = this.game.add.sprite(288, 570, 'rotate')
+      this.rotate.anchor.setTo(0.5, 0.5)
+      this.rotate.inputEnabled = true
+      this.rotate.events.onInputDown.add(this.rotatePet, this)
+
+      this.pet = this.game.add.sprite(100, 400, 'pet')
+      this.pet.anchor.setTo(0.5, 0.5)
+      this.pet.params = { health: 100, fun: 100 }
+      this.pet.inputEnabled = true
+      this.pet.input.enableDrag()
+
+      this.buttons = [this.apple, this.candy, this.pet, this.rotate]
+
+      this.selectedItem = null
     },
 
-    update: function () {}
+    update: function () {},
+
+    pickItem: function (sprite, event) {
+      console.log('pick item')
+    },
+
+    rotatePet: function (sprite, event) {
+      console.log('rotating')
+    }
   }
 
   // initialize Phaser framework
