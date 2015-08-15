@@ -52,16 +52,35 @@
       this.buttons = [this.apple, this.candy, this.pet, this.rotate]
 
       this.selectedItem = null
+      this.uiBlocked = false
     },
 
     update: function () {},
 
     pickItem: function (sprite, event) {
-      console.log('pick item')
+      if (!this.uiBlocked) {
+        console.log('pick item')
+        this.clearSelection()
+        sprite.alpha = 0.4
+        this.selectedItem = sprite
+        this.uiBlocked = true
+      }
     },
 
     rotatePet: function (sprite, event) {
-      console.log('rotating')
+      if (!this.uiBlocked) {
+        console.log('rotating')
+        this.clearSelection()
+        sprite.alpha = 0.4
+        this.uiBlocked = true
+      }
+    },
+
+    clearSelection: function () {
+      for (var i = 0; i < this.buttons.length; i++) {
+        this.buttons[i].alpha = 1.0
+      }
+      this.selectedItem = null
     }
   }
 
